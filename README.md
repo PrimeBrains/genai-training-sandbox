@@ -11,6 +11,8 @@ Claude Code のようなエージェント型AIは、Issue を読み、ブラン
 
 ## 事前セットアップ（研修当日までに）
 
+詳しい手順は [docs/事前セットアップ案内.md](docs/事前セットアップ案内.md) を見てください。以下は概要です。
+
 1. **JDK 21** をインストール（例: [Temurin 21](https://adoptium.net/)）
 2. **Git** と **GitHub CLI (gh)** をインストールし、`gh auth login` で認証
 3. **Claude Code** をインストール: https://claude.com/claude-code

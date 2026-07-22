@@ -13,15 +13,17 @@ Claude Code のようなエージェント型AIは、Issue を読み、ブラン
 
 詳しい手順は [docs/事前セットアップ案内.md](docs/事前セットアップ案内.md) を見てください。以下は概要です。
 
-1. **JDK 21** をインストール（例: [Temurin 21](https://adoptium.net/)）
-2. **Git** と **GitHub CLI (gh)** をインストールし、`gh auth login` で認証
+対象は Windows PC、コマンドはすべて PowerShell で実行します。
+
+1. **JDK 21** をインストール（[Temurin 21](https://adoptium.net/) の .msi、「Add to PATH」を有効に）
+2. **Git for Windows** と **GitHub CLI (gh)** をインストールし、`gh auth login` で認証
 3. **Claude Code** をインストール: https://claude.com/claude-code
 4. 動作確認:
 
-```bash
+```powershell
 git clone <このリポジトリのURL>
 cd genai-training-sandbox
-./gradlew test   # 初回は依存ダウンロードで数分かかります。テストが「落ちる」のは仕様です（研修の課題）
+.\gradlew.bat test   # 初回は依存ダウンロードで数分かかります。テストが「落ちる」のは仕様です（研修の課題）
 ```
 
 `BUILD FAILED`（テスト失敗）まで進めばセットアップ成功です。当日はここから始めます。

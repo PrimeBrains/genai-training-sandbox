@@ -17,7 +17,8 @@ for i in $(seq 1 "$PAIRS"); do
   for f in "$@"; do
     B64=$(base64 -w0 "$ROOT/$f")
     # 既存ファイルなら sha 必須、新規なら不要
-    SHA=$(gh api "repos/$ORG/$NAME/contents/$f" --jq .sha 2>/dev/null || true)
+    # 注: gh api は 404 でもエラー本文 JSON を標準出力に出すため、jq で sha だけ抜いて判定する
+    SHA=$(gh api "repos/$ORG/$NAME/contents/$f" 2>/dev/null | jq -r '.sha // empty' || true)
     if [ -n "$SHA" ]; then
       REMOTE=$(gh api "repos/$ORG/$NAME/contents/$f" --jq .content | tr -d '\n')
       if [ "$REMOTE" = "$B64" ]; then echo "   $f: 変更なし(スキップ)"; continue; fi

@@ -4,7 +4,7 @@
 set -euo pipefail
 REPO="${1:?usage: seed-issues.sh <owner/repo>}"
 
-for L in "調査:0e8a16" "バグ:d73a4a" "タスク:0075ca" "priority-high:b60205" "priority-low:c5def5"; do
+for L in "調査:0e8a16" "バグ:d73a4a" "タスク:0075ca" "priority-high:b60205" "priority-medium:fbca04" "priority-low:c5def5"; do
   gh label create "${L%%:*}" --repo "$REPO" --color "${L##*:}" --force
 done
 
@@ -32,13 +32,13 @@ High（期限: 本日）
 - [ ] 「どういう場面でどちらを使うか」の使い分け表がある
 - [ ] PR が作成されている"
 
-gh issue create --repo "$REPO" --label "バグ,priority-high" \
+gh issue create --repo "$REPO" --label "バグ,priority-medium" \
   --title "経費精算のテストが落ちている。原因を調べて修正せよ" \
   --body "## 概要
 \`./gradlew test\` を実行するとテストが失敗する。原因を特定し、プロダクトコードを修正する。
 
 ## 優先度
-High（期限: 本日）
+Medium（本日中）
 
 ## 注意
 - 仕様の正は ExpenseService の Javadoc とテストコード。テスト側を書き換えて通すのは禁止

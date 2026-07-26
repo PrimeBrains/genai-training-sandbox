@@ -10,9 +10,14 @@ END="${2:-$START}"
 REGION="${AWS_REGION:-ap-northeast-1}"
 
 # 認証切れをゼロ件と誤報告しないための前置きチェック
+if [ -z "${AWS_PROFILE:-}" ]; then
+  echo "ERROR: AWS_PROFILE が設定されていません（export を忘れていませんか）。" >&2
+  echo "  export AWS_PROFILE=<admin-profile>  または  AWS_PROFILE=<admin-profile> $0 ... で実行してください。" >&2
+  exit 1
+fi
 if ! aws sts get-caller-identity >/dev/null 2>&1; then
-  echo "ERROR: AWS 認証が無効です（SSO トークン切れの可能性）。" >&2
-  echo "  aws sso login --profile ${AWS_PROFILE:-<admin-profile>} を実行してから再実行してください。" >&2
+  echo "ERROR: AWS 認証が無効です（SSO トークン切れ）。" >&2
+  echo "  aws sso login --profile $AWS_PROFILE を実行してから再実行してください。" >&2
   exit 1
 fi
 

@@ -38,7 +38,10 @@ for i in $(seq 1 "$PAIRS"); do
     --query 'AccessKey.[AccessKeyId,SecretAccessKey]' --output text)
 
   {
-    echo "# Append the 3 lines below to ~/.aws/credentials (create the file if absent)."
+    echo "# あなたの専用リポジトリ（事前セットアップ案内の §4 で clone するのはこの URL です）:"
+    echo "# https://github.com/PrimeBrains/genai-training-sandbox-pair$(printf '%02d' "$i").git"
+    echo "#"
+    echo "# 以下の3行を ~/.aws/credentials に貼り付けてください（ファイルがなければ作成）:"
     echo "[genai-training]"
     echo "aws_access_key_id = $KEY"
     echo "aws_secret_access_key = $SECRET"

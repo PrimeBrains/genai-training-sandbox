@@ -2,7 +2,8 @@
 # 表示: モデル名 | ブランチ名* | Ctx:使用率% | $費用
 # * = コミットしていない変更あり。Ctx はAIの作業記憶の使用率（60%超で黄、80%超で赤）
 $ErrorActionPreference = "SilentlyContinue"
-$data = [Console]::In.ReadToEnd() | ConvertFrom-Json
+$reader = New-Object System.IO.StreamReader([Console]::OpenStandardInput(), [System.Text.Encoding]::UTF8)
+$data = $reader.ReadToEnd() | ConvertFrom-Json
 
 $esc = [char]27
 $yellow = "$esc[33m"; $red = "$esc[31m"; $reset = "$esc[0m"

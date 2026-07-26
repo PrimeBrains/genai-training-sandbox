@@ -9,6 +9,13 @@ START="${1:-$(date +%F)}"
 END="${2:-$START}"
 REGION="${AWS_REGION:-ap-northeast-1}"
 
+# 認証切れをゼロ件と誤報告しないための前置きチェック
+if ! aws sts get-caller-identity >/dev/null 2>&1; then
+  echo "ERROR: AWS 認証が無効です（SSO トークン切れの可能性）。" >&2
+  echo "  aws sso login --profile ${AWS_PROFILE:-<admin-profile>} を実行してから再実行してください。" >&2
+  exit 1
+fi
+
 echo "# Bedrock 呼び出し回数（$START 〜 $END JST / region=$REGION）"
 for EV in InvokeModel InvokeModelWithResponseStream Converse ConverseStream; do
   aws cloudtrail lookup-events --region "$REGION" \
